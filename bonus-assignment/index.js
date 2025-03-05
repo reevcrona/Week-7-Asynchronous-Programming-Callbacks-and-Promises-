@@ -23,7 +23,6 @@ if (adviceForm) {
                 idInput.value = "";
             }
             if (adviceText && adviceText.classList.contains("error-color")) {
-                console.log("REMOVING CLASS");
                 adviceText.classList.remove("error-color");
             }
         })

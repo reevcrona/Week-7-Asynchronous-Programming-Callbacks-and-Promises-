@@ -1,10 +1,14 @@
 const idInput = document.getElementById("id-input") as HTMLInputElement | null;
+
 const adviceForm = document.querySelector(
   ".advice-form"
 ) as HTMLFormElement | null;
+
 const adviceText = document.querySelector(".advice-text");
+
 const customError: string =
   "Sorry, we could not find an advice with that id, try another";
+
 let inputValue: string = "";
 
 if (idInput) {
@@ -27,12 +31,11 @@ if (adviceForm) {
           idInput.value = "";
         }
         if (adviceText && adviceText.classList.contains("error-color")) {
-          console.log("REMOVING CLASS");
           adviceText.classList.remove("error-color");
         }
       })
       .catch((error) => {
-        console.log(error.message);
+        console.error(error.message);
         if (adviceText && idInput) {
           adviceText.textContent = error;
           adviceText.classList.add("error-color");
