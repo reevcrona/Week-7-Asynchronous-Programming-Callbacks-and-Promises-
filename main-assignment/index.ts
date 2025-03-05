@@ -74,6 +74,7 @@ const tryCatchFetch = async () => {
     console.error(error);
   }
 };
+tryCatchFetch();
 
 flipCoin()
   .then((gameResult) => {

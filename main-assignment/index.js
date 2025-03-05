@@ -69,6 +69,7 @@ const tryCatchFetch = () => __awaiter(void 0, void 0, void 0, function* () {
         console.error(error);
     }
 });
+tryCatchFetch();
 flipCoin()
     .then((gameResult) => {
     console.log(gameResult);
