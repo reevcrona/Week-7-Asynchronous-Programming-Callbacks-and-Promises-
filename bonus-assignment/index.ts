@@ -1,3 +1,5 @@
+// I am sick at the moment, i could try and improve the code but i would rather rest so i will do that.
+
 const idInput = document.getElementById("id-input") as HTMLInputElement | null;
 
 const adviceForm = document.querySelector(
