@@ -20,13 +20,6 @@ const flipCoin = () => {
         }
     });
 };
-flipCoin()
-    .then((gameResult) => {
-    console.log(gameResult);
-})
-    .catch((gameResult) => {
-    console.log(gameResult);
-});
 const getFlipCoinResult = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield flipCoin();
@@ -36,7 +29,6 @@ const getFlipCoinResult = () => __awaiter(void 0, void 0, void 0, function* () {
         console.log(rejectValue);
     }
 });
-getFlipCoinResult();
 // Part 1
 // Part 2
 const fetchApiData = () => {
@@ -55,6 +47,12 @@ const fetchApiData = () => {
         console.error("Error feching advice", error);
     });
 };
+const getAdviceAfterCoinFlip = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield flipCoin();
+    console.log(result);
+    const adviceResponse = yield tryCatchFetch();
+    console.log(adviceResponse);
+});
 const tryCatchFetch = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const response = yield fetch("https://api.adviceslip.com/advice");
@@ -63,19 +61,11 @@ const tryCatchFetch = () => __awaiter(void 0, void 0, void 0, function* () {
         }
         const data = yield response.json();
         const advice = data.slip.advice;
-        console.log(advice);
+        return advice;
     }
     catch (error) {
         console.error(error);
     }
 });
-tryCatchFetch();
-flipCoin()
-    .then((gameResult) => {
-    console.log(gameResult);
-    fetchApiData();
-})
-    .catch((gameResult) => {
-    console.log(gameResult);
-});
+getAdviceAfterCoinFlip();
 // Part 2

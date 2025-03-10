@@ -23,48 +23,48 @@ if (adviceForm) {
   adviceForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
-    fetchApiData(inputValue)
-      .then((value) => {
-        if (value === customError) {
+    const updateAdviceText = async () => {
+      try {
+        const advice = await fetchApiData(inputValue);
+
+        if (advice === customError) {
           throw new Error(customError);
         }
         if (adviceText && idInput) {
-          adviceText.textContent = value;
+          adviceText.textContent = advice;
           idInput.value = "";
         }
         if (adviceText && adviceText.classList.contains("error-color")) {
           adviceText.classList.remove("error-color");
         }
-      })
-      .catch((error) => {
+      } catch (error: any) {
         console.error(error.message);
         if (adviceText && idInput) {
           adviceText.textContent = error;
           adviceText.classList.add("error-color");
           idInput.value = "";
         }
-      });
+      }
+    };
+    updateAdviceText();
   });
 }
-const fetchApiData = (id: string) => {
-  return fetch(`https://api.adviceslip.com/advice/${id}`)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data && data.slip && data.slip.advice) {
-        const apiData = data.slip.advice;
-        return apiData;
-      } else {
-        throw new Error(customError);
-      }
-    })
-    .catch((error) => {
-      console.error(error.message);
+const fetchApiData = async (id: string) => {
+  try {
+    const response = await fetch(`https://api.adviceslip.com/advice/${id}`);
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+    const data = await response.json();
+    if (data && data.slip && data.slip.advice) {
+      const apiData = data.slip.advice;
+      return apiData;
+    } else {
+      throw new Error(customError);
+    }
+  } catch (error: any) {
+    console.error(error.message);
 
-      return error.message;
-    });
+    return error.message;
+  }
 };

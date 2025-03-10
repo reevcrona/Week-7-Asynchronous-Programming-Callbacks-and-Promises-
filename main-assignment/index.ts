@@ -18,14 +18,6 @@ const flipCoin = (): Promise<string> => {
   });
 };
 
-flipCoin()
-  .then((gameResult) => {
-    console.log(gameResult);
-  })
-  .catch((gameResult) => {
-    console.log(gameResult);
-  });
-
 const getFlipCoinResult = async () => {
   try {
     const result: string = await flipCoin();
@@ -34,8 +26,6 @@ const getFlipCoinResult = async () => {
     console.log(rejectValue);
   }
 };
-
-getFlipCoinResult();
 
 // Part 1
 
@@ -57,7 +47,12 @@ const fetchApiData = () => {
       console.error("Error feching advice", error);
     });
 };
-
+const getAdviceAfterCoinFlip = async () => {
+  const result = await flipCoin();
+  console.log(result);
+  const adviceResponse = await tryCatchFetch();
+  console.log(adviceResponse);
+};
 const tryCatchFetch = async () => {
   try {
     const response = await fetch("https://api.adviceslip.com/advice");
@@ -69,20 +64,11 @@ const tryCatchFetch = async () => {
 
     const advice = data.slip.advice;
 
-    console.log(advice);
+    return advice;
   } catch (error) {
     console.error(error);
   }
 };
-tryCatchFetch();
 
-flipCoin()
-  .then((gameResult) => {
-    console.log(gameResult);
-    fetchApiData();
-  })
-  .catch((gameResult) => {
-    console.log(gameResult);
-  });
-
+getAdviceAfterCoinFlip();
 // Part 2
